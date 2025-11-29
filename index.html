@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Hub - Your Online Store</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        .nav-links a.active {
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-info p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            color: #667eea;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-box {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Payment Form */
+        .payment-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .cart-summary {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 1rem;
+            color: #667eea;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo" onclick="showPage('home')">🛍️ Shopping Hub</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
+                <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+                <li><a href="#" onclick="showPage('products')" id="nav-products">Products</a></li>
+                <li><a href="#" onclick="showPage('payment')" id="nav-payment">Cart & Payment</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- HOME PAGE -->
+    <div id="home-page" class="page">
+        <div class="hero">
+            <h1>Welcome to Shopping Hub</h1>
+            <p>Your one-stop destination for quality products at amazing prices</p>
+            <a href="#" class="btn" onclick="showPage('products')">Shop Now</a>
+        </div>
+
+        <div class="container">
+            <h2>Featured Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <div class="product-info">
+                        <h3>Smartphone Pro</h3>
+                        <p>Latest 5G smartphone with amazing features</p>
+                        <div class="price">$799</div>
+                        <button class="btn" onclick="addToCart('Smartphone Pro', 799)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <div class="product-info">
+                        <h3>Laptop Ultra</h3>
+                        <p>Powerful laptop for work and gaming</p>
+                        <div class="price">$1,299</div>
+                        <button class="btn" onclick="addToCart('Laptop Ultra', 1299)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <p>Premium sound quality with noise cancellation</p>
+                        <div class="price">$249</div>
+                        <button class="btn" onclick="addToCart('Wireless Headphones', 249)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT PAGE -->
+    <div id="about-page" class="page hidden">
+        <div class="hero">
+            <h1>About Shopping Hub</h1>
+            <p>Your trusted partner in online shopping since 2020</p>
+        </div>
+
+        <div class="container">
+            <h2>Why Choose Us?</h2>
+            <div class="about-content">
+                <div class="feature-box">
+                    <div class="feature-icon">🚚</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Get your products delivered within 2-3 business days with our express shipping service.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">💰</div>
+                    <h3>Best Prices</h3>
+                    <p>We offer competitive prices and regular discounts to ensure you get the best deals.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Payment</h3>
+                    <p>Your transactions are protected with advanced encryption and security measures.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Quality Products</h3>
+                    <p>We source only authentic, high-quality products from trusted manufacturers.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">💬</div>
+                    <h3>24/7 Support</h3>
+                    <p>Our customer service team is always ready to assist you with any questions.</p>
+                </div>
+
+                <div class="feature-box">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Easy Returns</h3>
+                    <p>Not satisfied? Return your products within 30 days for a full refund.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div id="products-page" class="page hidden">
+        <div class="hero">
+            <h1>Our Products</h1>
+            <p>Browse our extensive collection of quality products</p>
+        </div>
+
+        <div class="container">
+            <h2>All Products</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">📱</div>
+                    <div class="product-info">
+                        <h3>Smartphone Pro</h3>
+                        <p>Latest 5G smartphone with 128GB storage</p>
+                        <div class="price">$799</div>
+                        <button class="btn" onclick="addToCart('Smartphone Pro', 799)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">💻</div>
+                    <div class="product-info">
+                        <h3>Laptop Ultra</h3>
+                        <p>16GB RAM, 512GB SSD, Intel i7</p>
+                        <div class="price">$1,299</div>
+                        <button class="btn" onclick="addToCart('Laptop Ultra', 1299)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎧</div>
+                    <div class="product-info">
+                        <h3>Wireless Headphones</h3>
+                        <p>Active noise cancellation, 30hr battery</p>
+                        <div class="price">$249</div>
+                        <button class="btn" onclick="addToCart('Wireless Headphones', 249)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌚</div>
+                    <div class="product-info">
+                        <h3>Smart Watch</h3>
+                        <p>Fitness tracking, heart rate monitor</p>
+                        <div class="price">$299</div>
+                        <button class="btn" onclick="addToCart('Smart Watch', 299)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">📷</div>
+                    <div class="product-info">
+                        <h3>Digital Camera</h3>
+                        <p>24MP sensor, 4K video recording</p>
+                        <div class="price">$899</div>
+                        <button class="btn" onclick="addToCart('Digital Camera', 899)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🎮</div>
+                    <div class="product-info">
+                        <h3>Gaming Console</h3>
+                        <p>Next-gen gaming with 4K graphics</p>
+                        <div class="price">$499</div>
+                        <button class="btn" onclick="addToCart('Gaming Console', 499)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖥️</div>
+                    <div class="product-info">
+                        <h3>4K Monitor</h3>
+                        <p>27-inch, HDR support, 144Hz</p>
+                        <div class="price">$449</div>
+                        <button class="btn" onclick="addToCart('4K Monitor', 449)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">⌨️</div>
+                    <div class="product-info">
+                        <h3>Mechanical Keyboard</h3>
+                        <p>RGB backlit, tactile switches</p>
+                        <div class="price">$129</div>
+                        <button class="btn" onclick="addToCart('Mechanical Keyboard', 129)">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">🖱️</div>
+                    <div class="product-info">
+                        <h3>Gaming Mouse</h3>
+                        <p>16000 DPI, programmable buttons</p>
+                        <div class="price">$79</div>
+                        <button class="btn" onclick="addToCart('Gaming Mouse', 79)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAYMENT PAGE -->
+    <div id="payment-page" class="page hidden">
+        <div class="hero">
+            <h1>Checkout</h1>
+            <p>Complete your purchase securely</p>
+        </div>
+
+        <div class="container">
+            <div class="payment-form">
+                <h2>Your Cart</h2>
+                <div class="cart-summary" id="cart-summary">
+                    <p style="text-align: center; color: #666;">Your cart is empty</p>
+                </div>
+
+                <h2>Payment Information</h2>
+                <form onsubmit="processPayment(event)">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" required placeholder="John Doe">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" required placeholder="john@example.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Card Number</label>
+                        <input type="text" required placeholder="1234 5678 9012 3456" maxlength="19">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <input type="text" required placeholder="MM/YY" maxlength="5">
+                    </div>
+
+                    <div class="form-group">
+                        <label>CVV</label>
+                        <input type="text" required placeholder="123" maxlength="3">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Billing Address</label>
+                        <input type="text" required placeholder="123 Main Street, City, Country">
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">Complete Payment</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 ShopHub. All rights reserved. | Privacy Policy | Terms of Service</p>
+    </footer>
+
+    <script>
+        let cart = [];
+
+        function showPage(pageName) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.add('hidden'));
+            
+            document.getElementById(`${pageName}-page`).classList.remove('hidden');
+            
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => link.classList.remove('active'));
+            document.getElementById(`nav-${pageName}`).classList.add('active');
+            
+            if (pageName === 'payment') {
+                updateCartDisplay();
+            }
+            
+            window.scrollTo(0, 0);
+        }
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            alert(`${productName} added to cart!`);
+        }
+
+        function updateCartDisplay() {
+            const cartSummary = document.getElementById('cart-summary');
+            
+            if (cart.length === 0) {
+                cartSummary.innerHTML = '<p style="text-align: center; color: #666;">Your cart is empty</p>';
+                return;
+            }
+
+            let html = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                html += `
+                    <div class="cart-item">
+                        <span>${item.name}</span>
+                        <span>$${item.price}</span>
+                    </div>
+                `;
+                total += item.price;
+            });
+
+            html += `
+                <div class="total">
+                    <span>Total:</span>
+                    <span>$${total}</span>
+                </div>
+            `;
+
+            cartSummary.innerHTML = html;
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            alert('Payment processed successfully! Thank you for your purchase.');
+            cart = [];
+            updateCartDisplay();
+            showPage('home');
+        }
+    </script>
+</body>
+</html>
